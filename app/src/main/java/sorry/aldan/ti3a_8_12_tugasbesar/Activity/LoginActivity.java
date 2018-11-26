@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.Main2Activity;
 import sorry.aldan.ti3a_8_12_tugasbesar.MainActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void goToActivity(){
-        Intent mIntent = new Intent(this,MainActivity.class);
+        Intent mIntent = new Intent(this,Main2Activity.class);
         startActivity(mIntent);
     }
 }
