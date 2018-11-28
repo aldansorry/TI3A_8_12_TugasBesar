@@ -1,13 +1,10 @@
 package sorry.aldan.ti3a_8_12_tugasbesar.Adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-
-import sorry.aldan.ti3a_8_12_tugasbesar.ClickListener;
 
 public class RecycleTouchListener implements RecyclerView.OnItemTouchListener {
 

@@ -11,13 +11,14 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.Activity.LoginActivity;
+import sorry.aldan.ti3a_8_12_tugasbesar.Activity.Main2Activity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 
 public class MainActivity extends AppCompatActivity {
 
 
     TextView tvEmail;
-    Button buttonLogout;
+    Button buttonLogout,btnRecycler;
 
     SessionManagement sessionManagement;
     HashMap<String,String> loginUser;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         //get component
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        btnRecycler = findViewById(R.id.btnRecycler);
 
         //instance
         sessionManagement = new SessionManagement(this);
@@ -50,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sessionManagement.logoutUser();
+            }
+        });
+
+        btnRecycler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,Main2Activity.class);
+                startActivity(i);
             }
         });
     }

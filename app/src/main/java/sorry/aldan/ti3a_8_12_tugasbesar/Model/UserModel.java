@@ -1,4 +1,4 @@
-package sorry.aldan.ti3a_8_12_tugasbesar;
+package sorry.aldan.ti3a_8_12_tugasbesar.Model;
 
 public class UserModel{
     private String judul, kategori;

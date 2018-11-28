@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import sorry.aldan.ti3a_8_12_tugasbesar.Main2Activity;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
-import sorry.aldan.ti3a_8_12_tugasbesar.UserModel;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.UserModel;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomHolder> {
 
@@ -29,7 +27,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomHold
     @Override
     public CustomHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        View view = layoutInflater.inflate(R.layout.activity_item,viewGroup,false);
+        View view = layoutInflater.inflate(R.layout.item_rv,viewGroup,false);
         CustomHolder viewHolder = new CustomHolder(view);
         return viewHolder;
     }

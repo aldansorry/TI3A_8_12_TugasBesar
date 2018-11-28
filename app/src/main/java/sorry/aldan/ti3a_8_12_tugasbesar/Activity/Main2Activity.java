@@ -1,4 +1,4 @@
-package sorry.aldan.ti3a_8_12_tugasbesar;
+package sorry.aldan.ti3a_8_12_tugasbesar.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,12 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import sorry.aldan.ti3a_8_12_tugasbesar.Activity.DetailActivity;
+import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.ClickListener;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.CustomAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.RecycleTouchListener;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.UserModel;
+import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -28,6 +32,8 @@ public class Main2Activity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        dataset.add(new UserModel("Judul","Kategori"));
 
         mAdapter = new CustomAdapter(dataset, this);
         mRecyclerView.setAdapter(mAdapter);
