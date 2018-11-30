@@ -15,8 +15,8 @@ public class SessionManagement {
     int PRIVATE_MODE;
     private static final String PREF_NAME = "SharedPrefLatihan";
     private static final String IS_LOGIN = "IsLoggedIn";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWOrD = "password";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASSWORD = "password";
 
     public SessionManagement(Context mContext) {
         this.mContext = mContext;
@@ -26,15 +26,15 @@ public class SessionManagement {
     }
     public void createLoginSession(String email, String password){
         mEditor.putBoolean(IS_LOGIN, true);
-        mEditor.putString(KEY_EMAIL, password);
-        mEditor.putString(KEY_PASSWOrD, email);
+        mEditor.putString(KEY_USERNAME, email);
+        mEditor.putString(KEY_PASSWORD, password);
         mEditor.commit();
     }
 
     public HashMap<String, String> getUserInformation(){
         HashMap<String, String> user = new HashMap<String, String>();
-        user.put(KEY_EMAIL, mSharedPreference.getString(KEY_EMAIL, null));
-        user.put(KEY_PASSWOrD, mSharedPreference.getString(KEY_PASSWOrD, null));
+        user.put(KEY_USERNAME, mSharedPreference.getString(KEY_USERNAME, null));
+        user.put(KEY_PASSWORD, mSharedPreference.getString(KEY_PASSWORD, null));
         return user;
     }
     public boolean isLoggedIn(){

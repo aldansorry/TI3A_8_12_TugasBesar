@@ -10,11 +10,10 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import sorry.aldan.ti3a_8_12_tugasbesar.Activity.DetailActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.ClickListener;
-import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.CustomAdapter;
+import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.RecycleTouchListener;
-import sorry.aldan.ti3a_8_12_tugasbesar.Model.UserModel;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
 public class Main2Activity extends AppCompatActivity {
@@ -22,7 +21,7 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
-    private List<UserModel> dataset = new ArrayList<>();
+    private List<Laporan> dataset = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +32,9 @@ public class Main2Activity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        dataset.add(new UserModel("Judul","Kategori"));
+        dataset.add(new Laporan("Judul","Kategori"));
 
-        mAdapter = new CustomAdapter(dataset, this);
+        mAdapter = new LaporanAdapter(dataset, this);
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecycleTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {

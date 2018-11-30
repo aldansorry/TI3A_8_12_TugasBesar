@@ -13,8 +13,8 @@ import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText edtEmail, edtPassword;
-    Button buttonLogin;
+    EditText edtUsername, edtPassword;
+    Button btnLogin,btnRegister;
     SessionManagement sessionManagement;
 
     @Override
@@ -23,9 +23,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //get component
-        edtEmail = findViewById(R.id.editEmail);
-        edtPassword = findViewById(R.id.editPassword);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        edtUsername = findViewById(R.id.edtUsername);
+        edtPassword = findViewById(R.id.edtPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnRegister = findViewById(R.id.btnRegister);
 
         //instance
         sessionManagement = new SessionManagement(this);
@@ -36,27 +37,34 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //button function
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //make var for store input value
-                String email,password;
+                String username,password;
                 //get input value
-                email = edtEmail.getText().toString();
+                username = edtUsername.getText().toString();
                 password = edtPassword.getText().toString();
 
                 //validate is not null, and not space
-                if(email.matches("") || email.trim().isEmpty() || password.matches("") || password.trim().isEmpty()){
+                if(username.matches("") || username.trim().isEmpty() || password.matches("") || password.trim().isEmpty()){
                     Toast.makeText(LoginActivity.this,"Email dan Passsword Tidak Boleh Kosong / Space"
                             ,Toast.LENGTH_LONG).show();
                     return;
                 }else {
-                    sessionManagement.createLoginSession(email, password);
+                    sessionManagement.createLoginSession(username, password);
                     goToActivity();
                 }
             }
         });
 
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(i);
+            }
+        });
     }
     private void goToActivity(){
         Intent mIntent = new Intent(this,Main2Activity.class);

@@ -11,14 +11,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
-import sorry.aldan.ti3a_8_12_tugasbesar.Model.UserModel;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomHolder> {
+public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.CustomHolder> {
 
-    private List<UserModel> dataset;
+    private List<Laporan> dataset;
     Context mContext;
 
-    public CustomAdapter( List<UserModel> mdataset, Context context) {
+    public LaporanAdapter(List<Laporan> mdataset, Context context) {
         mContext = context;
         dataset = mdataset;
     }
@@ -34,7 +34,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomHold
 
     @Override
     public void onBindViewHolder(@NonNull CustomHolder customHolder, int i) {
-        UserModel um = dataset.get(i);
+        Laporan um = dataset.get(i);
         customHolder.judul.setText(um.getJudul());
         customHolder.kategori.setText(um.getKategori());
     }

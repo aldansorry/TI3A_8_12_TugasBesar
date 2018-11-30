@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         loginUser = sessionManagement.getUserInformation();
 
         //change text to username
-        tvEmail.setText(loginUser.get(sessionManagement.KEY_EMAIL));
+        tvEmail.setText(loginUser.get(sessionManagement.KEY_USERNAME));
 
         //onclick logout
         buttonLogout.setOnClickListener(new View.OnClickListener() {

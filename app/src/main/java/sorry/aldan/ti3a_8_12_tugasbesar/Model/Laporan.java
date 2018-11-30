@@ -1,9 +1,9 @@
 package sorry.aldan.ti3a_8_12_tugasbesar.Model;
 
-public class UserModel{
+public class Laporan {
     private String judul, kategori;
 
-    public UserModel(String judul, String kategori){
+    public Laporan(String judul, String kategori){
         this.judul = judul;
         this.kategori = kategori;
     }
