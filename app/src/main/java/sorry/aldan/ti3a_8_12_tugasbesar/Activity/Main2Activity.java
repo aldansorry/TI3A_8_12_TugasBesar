@@ -5,16 +5,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.ClickListener;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.RecycleTouchListener;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
+import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
+import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiInterface;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -32,10 +39,23 @@ public class Main2Activity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        dataset.add(new Laporan("Judul","Kategori"));
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseLaporan> mPembeliCall = mApiInterface.getLaporan();
+        mPembeliCall.enqueue(new Callback<ResponseLaporan>() {
+            @Override
+            public void onResponse(Call<ResponseLaporan> call,
+                                   Response<ResponseLaporan> response) {
+                Log.d("Get Pembeli",response.body().getStatus());
+                dataset = response.body().getResult();
+                mAdapter = new LaporanAdapter(dataset, getApplicationContext());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+            @Override
+            public void onFailure(Call<ResponseLaporan> call, Throwable t) {
+                Log.d("Get Pembeli",t.getMessage());
+            }
+        });
 
-        mAdapter = new LaporanAdapter(dataset, this);
-        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecycleTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
             @Override
@@ -45,7 +65,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 // ToDo 6 buat intent untuk membawa data (image, nama, url) ke DetailActivity
                 i.putExtra("judul",dataset.get(position).getJudul().toString());
-                i.putExtra("kategori",dataset.get(position).getKategori().toString());
+                i.putExtra("kategori",dataset.get(position).getDeskripsi().toString());
                 startActivity(i);
 
 

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import sorry.aldan.ti3a_8_12_tugasbesar.Helper.DatabaseHelper;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
@@ -16,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtUsername, edtPassword;
     Button btnLogin,btnRegister;
     SessionManagement sessionManagement;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //instance
         sessionManagement = new SessionManagement(this);
+        databaseHelper = new DatabaseHelper(this);
 
         //go to main if already login
         if(sessionManagement.isLoggedIn()){
@@ -52,8 +55,12 @@ public class LoginActivity extends AppCompatActivity {
                             ,Toast.LENGTH_LONG).show();
                     return;
                 }else {
-                    sessionManagement.createLoginSession(username, password);
-                    goToActivity();
+                    if (databaseHelper.autentikasi(username,password)){
+                        sessionManagement.createLoginSession(username, password);
+                        goToActivity();
+                    }else{
+                        Toast.makeText(LoginActivity.this,"Username belum terdaftar",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

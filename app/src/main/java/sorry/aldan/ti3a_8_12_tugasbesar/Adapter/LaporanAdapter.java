@@ -36,7 +36,7 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.CustomHo
     public void onBindViewHolder(@NonNull CustomHolder customHolder, int i) {
         Laporan um = dataset.get(i);
         customHolder.judul.setText(um.getJudul());
-        customHolder.kategori.setText(um.getKategori());
+        customHolder.kategori.setText(um.getDeskripsi());
     }
 
     @Override

@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Email Harus Diisi",Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!username.contains("@")){
+                if (!email.contains("@")){
                     Toast.makeText(RegisterActivity.this,"Email Harus berisikan @",Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -62,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Password Harus Diisi",Toast.LENGTH_LONG).show();
                     return;
                 }
+                databaseHelper.addUser(nama,email,username,password,"1");
                 finish();
             }
         });

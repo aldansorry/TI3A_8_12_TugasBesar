@@ -56,9 +56,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAMA, nama);
         values.put(KEY_EMAIL, email);
-        values.put(KEY_USERNAME, email);
-        values.put(KEY_PASSWORD, email);
-        values.put(KEY_LEVEL, email);
+        values.put(KEY_USERNAME, username);
+        values.put(KEY_PASSWORD, password);
+        values.put(KEY_LEVEL, level);
 
         long id = db.insertWithOnConflict(TABLE_USER,null,values,SQLiteDatabase.CONFLICT_IGNORE);
     }
@@ -113,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean autentikasi(String username, String password){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from "+TABLE_USER+" WHERE "+KEY_USERNAME+"="+username+" AND "+KEY_PASSWORD+"="+password,null);
+        Cursor cursor = db.rawQuery("Select * from "+TABLE_USER+" WHERE "+KEY_USERNAME+"='"+username+"' AND "+KEY_PASSWORD+"='"+password+"'",null);
         cursor.moveToFirst();
         if (cursor.getCount() == 1){
             return true;
