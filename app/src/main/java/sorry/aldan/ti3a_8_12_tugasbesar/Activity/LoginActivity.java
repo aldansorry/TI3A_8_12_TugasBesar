@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goToActivity(){
-        Intent mIntent = new Intent(this,Main2Activity.class);
+        Intent mIntent = new Intent(this,ListLaporanActivity.class);
         startActivity(mIntent);
     }
 }

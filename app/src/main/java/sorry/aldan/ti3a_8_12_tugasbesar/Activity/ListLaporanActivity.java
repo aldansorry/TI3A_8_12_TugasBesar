@@ -27,7 +27,7 @@ import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiInterface;
 
-public class Main2Activity extends AppCompatActivity {
+public class ListLaporanActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -38,7 +38,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_list_laporan);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         mLayoutManager = new LinearLayoutManager(this);

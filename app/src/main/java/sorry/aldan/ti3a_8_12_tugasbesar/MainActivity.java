@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.Activity.LoginActivity;
-import sorry.aldan.ti3a_8_12_tugasbesar.Activity.Main2Activity;
+import sorry.aldan.ti3a_8_12_tugasbesar.Activity.ListLaporanActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         btnRecycler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,Main2Activity.class);
+                Intent i = new Intent(MainActivity.this,ListLaporanActivity.class);
                 startActivity(i);
             }
         });

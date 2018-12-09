@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,44 +14,46 @@ import java.util.List;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 
-public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.CustomHolder> {
+public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.LaporanHolder> {
 
-    private List<Laporan> dataset;
+    private List<Laporan> listLaporan;
     Context mContext;
 
     public LaporanAdapter(List<Laporan> mdataset, Context context) {
         mContext = context;
-        dataset = mdataset;
+        listLaporan = mdataset;
     }
 
     @NonNull
     @Override
-    public CustomHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public LaporanHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        View view = layoutInflater.inflate(R.layout.item_rv,viewGroup,false);
-        CustomHolder viewHolder = new CustomHolder(view);
+        View view = layoutInflater.inflate(R.layout.item_laporan,viewGroup,false);
+        LaporanHolder viewHolder = new LaporanHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomHolder customHolder, int i) {
-        Laporan um = dataset.get(i);
-        customHolder.judul.setText(um.getJudul());
-        customHolder.kategori.setText(um.getDeskripsi());
+    public void onBindViewHolder(@NonNull LaporanHolder laporanHolder, int i) {
+        Laporan um = listLaporan.get(i);
+        laporanHolder.txtJudul.setText(um.getJudul());
+        laporanHolder.txtStatus.setText(um.getDeskripsi());
     }
 
     @Override
     public int getItemCount() {
-        return dataset.size();
+        return listLaporan.size();
     }
 
-    public class CustomHolder extends RecyclerView.ViewHolder{
-        TextView judul,kategori;
+    public class LaporanHolder extends RecyclerView.ViewHolder{
+        ImageView imgGambar;
+        TextView txtJudul, txtStatus;
         View listItem;
-        public CustomHolder(@NonNull View itemView) {
+        public LaporanHolder(@NonNull View itemView) {
             super(itemView);
-            judul = itemView.findViewById(R.id.name);
-            kategori = itemView.findViewById(R.id.kategori);
+            imgGambar = itemView.findViewById(R.id.imgGambar);
+            txtJudul = itemView.findViewById(R.id.txtJudul);
+            txtStatus = itemView.findViewById(R.id.txtStatus);
             listItem = itemView;
         }
     }
