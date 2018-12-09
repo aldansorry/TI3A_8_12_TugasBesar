@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AddLaporanActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgGambar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_launcher_background" />
+        <Button
+            android:id="@+id/btnAddGambar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgGambar"
+            android:layout_centerHorizontal="true"
+            android:text="Select Photo Id"/>
+
+        <EditText
+            android:id="@+id/edtJudul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:hint="Input Judul"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edtDeskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:hint="Input Deskripsi"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edtLattitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:hint="Input Lattitude"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edtLongtitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:hint="Input Longtitude"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnAddLaporan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            android:text="Add Laporan" />
+    </LinearLayout>
+
+</ScrollView>

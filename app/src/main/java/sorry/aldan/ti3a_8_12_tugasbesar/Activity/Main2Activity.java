@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import retrofit2.Response;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.ClickListener;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.RecycleTouchListener;
+import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
@@ -29,6 +33,7 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     private List<Laporan> dataset = new ArrayList<>();
+    private SessionManagement sessionManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,8 @@ public class Main2Activity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        sessionManagement = new SessionManagement(this);
 
         ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponseLaporan> mPembeliCall = mApiInterface.getLaporan();
@@ -49,10 +56,12 @@ public class Main2Activity extends AppCompatActivity {
                 dataset = response.body().getResult();
                 mAdapter = new LaporanAdapter(dataset, getApplicationContext());
                 mRecyclerView.setAdapter(mAdapter);
+                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Call<ResponseLaporan> call, Throwable t) {
                 Log.d("Get Pembeli",t.getMessage());
+                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -77,5 +86,25 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         }));
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuAddLaporan:
+                mIntent = new Intent(this, AddLaporanActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "46640545097",
+    "firebase_url": "https://ti3a812tugasbesar.firebaseio.com",
+    "project_id": "ti3a812tugasbesar",
+    "storage_bucket": "ti3a812tugasbesar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46640545097:android:6249429461516d98",
+        "android_client_info": {
+          "package_name": "sorry.aldan.ti3a_8_12_tugasbesar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46640545097-5l6d8sqpliko6v581iv64ij3tqvpjkf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sorry.aldan.ti3a_8_12_tugasbesar",
+            "certificate_hash": "15e09702b35a131abe08c78c9f92df7ba4bf24d3"
+          }
+        },
+        {
+          "client_id": "46640545097-cln83iif4o7vnfkmtpn48ch409arai9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSWDLxq35NavS2t6HoTnUAh5eTIBCZfC4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46640545097-cln83iif4o7vnfkmtpn48ch409arai9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
