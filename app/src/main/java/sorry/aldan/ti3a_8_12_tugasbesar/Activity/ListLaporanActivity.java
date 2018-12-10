@@ -75,6 +75,8 @@ public class ListLaporanActivity extends AppCompatActivity {
                 // ToDo 6 buat intent untuk membawa data (image, nama, url) ke DetailActivity
                 i.putExtra("judul",dataset.get(position).getJudul().toString());
                 i.putExtra("kategori",dataset.get(position).getDeskripsi().toString());
+                i.putExtra("lattitude",dataset.get(position).getLattitude().toString());
+                i.putExtra("longtitude",dataset.get(position).getLongtitude().toString());
                 startActivity(i);
 
 

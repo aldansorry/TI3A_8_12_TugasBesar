@@ -18,10 +18,14 @@ public class DetailActivity extends AppCompatActivity {
 
         btnMaps = findViewById(R.id.btnMaps);
 
+        final Intent myIntent = getIntent();
+
         btnMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this,MapsActivity.class);
+                intent.putExtra("longtitude",myIntent.getStringExtra("longtitude"));
+                intent.putExtra("lattitude",myIntent.getStringExtra("lattitude"));
                 startActivity(intent);
             }
         });
