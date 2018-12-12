@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -16,8 +17,10 @@ import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView tvEmail;
-    Button buttonLogout,btnRecycler;
+    TextView txtUser;
+    ImageView imgHome;
+    ImageView imgSmartCity;
+    ImageView imgUser;
 
     SessionManagement sessionManagement;
     HashMap<String,String> loginUser;
@@ -28,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //get component
-        tvEmail = (TextView) findViewById(R.id.tvEmail);
-        buttonLogout = (Button) findViewById(R.id.buttonLogout);
-        btnRecycler = findViewById(R.id.btnRecycler);
+        txtUser = findViewById(R.id.txtUser);
+        imgHome = findViewById(R.id.imgGambar);
+        imgSmartCity = findViewById(R.id.imgSmartCity);
+        imgUser = findViewById(R.id.imgUser);
 
         //instance
         sessionManagement = new SessionManagement(this);
@@ -44,17 +48,17 @@ public class MainActivity extends AppCompatActivity {
         loginUser = sessionManagement.getUserInformation();
 
         //change text to username
-        tvEmail.setText(loginUser.get(sessionManagement.KEY_USERNAME));
+        txtUser.setText(loginUser.get(sessionManagement.KEY_USERNAME));
 
         //onclick logout
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
+        imgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sessionManagement.logoutUser();
             }
         });
 
-        btnRecycler.setOnClickListener(new View.OnClickListener() {
+        imgSmartCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,ListLaporanActivity.class);

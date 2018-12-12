@@ -1,6 +1,7 @@
 package sorry.aldan.ti3a_8_12_tugasbesar.Activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,8 @@ public class ListLaporanActivity extends AppCompatActivity {
     private List<Laporan> dataset = new ArrayList<>();
     private SessionManagement sessionManagement;
 
+    FloatingActionButton btnAddLaporan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class ListLaporanActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.rv);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        btnAddLaporan = findViewById(R.id.btnAddLaporan);
 
         sessionManagement = new SessionManagement(this);
 
@@ -89,6 +93,14 @@ public class ListLaporanActivity extends AppCompatActivity {
 
             }
         }));
+
+        btnAddLaporan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(ListLaporanActivity.this, AddLaporanActivity.class);
+                startActivity(mIntent);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
+import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
 
 public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.LaporanHolder> {
 
@@ -38,6 +41,8 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.LaporanH
         Laporan um = listLaporan.get(i);
         laporanHolder.txtJudul.setText(um.getJudul());
         laporanHolder.txtStatus.setText(um.getDeskripsi());
+        Picasso.with(mContext).load(ApiClient.BASE_URL+"application/upload/" +um.getGambar()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(laporanHolder.imgGambar);
+
     }
 
     @Override

@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 public class Laporan {
     @SerializedName("id")
     private String id;
+    @SerializedName("nama")
+    private String nama;
+    @SerializedName("email")
+    private String email;
     @SerializedName("judul")
     private String judul;
     @SerializedName("deskripsi")
@@ -17,17 +21,23 @@ public class Laporan {
     private String gambar;
     @SerializedName("status")
     private String status;
+    @SerializedName("nama_kategori")
+    private String nama_kategori;
 
     public Laporan() {
     }
 
-    public Laporan(String judul, String deskripsi, Double lattitude, Double longtitude, String gambar, String status) {
+    public Laporan(String id, String nama, String email, String judul, String deskripsi, Double lattitude, Double longtitude, String gambar, String status, String nama_kategori) {
+        this.id = id;
+        this.nama = nama;
+        this.email = email;
         this.judul = judul;
         this.deskripsi = deskripsi;
         this.lattitude = lattitude;
         this.longtitude = longtitude;
         this.gambar = gambar;
         this.status = status;
+        this.nama_kategori = nama_kategori;
     }
 
     public String getId() {
@@ -36,6 +46,22 @@ public class Laporan {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getJudul() {
@@ -84,5 +110,13 @@ public class Laporan {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNama_kategori() {
+        return nama_kategori;
+    }
+
+    public void setNama_kategori(String nama_kategori) {
+        this.nama_kategori = nama_kategori;
     }
 }

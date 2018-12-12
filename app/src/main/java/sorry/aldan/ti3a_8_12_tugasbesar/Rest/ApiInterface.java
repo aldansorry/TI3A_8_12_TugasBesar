@@ -19,10 +19,13 @@ public interface ApiInterface {
     @POST("laporan/laporan")
     Call<ResponseLaporan> postLaporan(
             @Part MultipartBody.Part file,
-            @Part("id") RequestBody id,
+            @Part("nama") RequestBody nama,
+            @Part("email") RequestBody email,
             @Part("judul") RequestBody judul,
             @Part("deskripsi") RequestBody deskripsi,
             @Part("longtitude") RequestBody longtitude,
             @Part("lattitude") RequestBody lattitude,
-            @Part("status") RequestBody status);
+            @Part("status") RequestBody status,
+            @Part("kategori") RequestBody kategori
+    );
 }

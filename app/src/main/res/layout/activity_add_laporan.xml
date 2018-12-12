@@ -13,16 +13,29 @@
 
         <ImageView
             android:id="@+id/imgGambar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/ic_launcher_background" />
-        <Button
-            android:id="@+id/btnAddGambar"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgGambar"
-            android:layout_centerHorizontal="true"
-            android:text="Select Photo Id"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/imgGambar">
+            <Button
+                android:id="@+id/btnAddGambar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Galery"/>
+            <Button
+                android:id="@+id/btnTakePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="takePicture"
+                android:layout_centerHorizontal="true"
+                android:text="Camera"/>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/edtJudul"
@@ -56,12 +69,21 @@
             android:hint="Input Longtitude"
             android:inputType="text" />
 
+        <Spinner
+            android:id="@+id/spnKategori"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="12dp"></Spinner>
+
         <Button
             android:id="@+id/btnAddLaporan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="12dp"
+            android:textColor="#fff"
+            android:background="@color/t_blue"
             android:text="Add Laporan" />
     </LinearLayout>
 
