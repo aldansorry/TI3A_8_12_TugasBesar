@@ -33,7 +33,10 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.Kategori;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseKategori;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
@@ -57,6 +60,7 @@ public class AddLaporanActivity extends AppCompatActivity {
 
     SessionManagement sessionManagement;
 
+    List<Kategori> kategoriArray;
     private static final int REQUEST_IMAGE_PICTURE = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +80,28 @@ public class AddLaporanActivity extends AppCompatActivity {
         sessionManagement = new SessionManagement(this);
 
 
+        kategoriArray = new ArrayList<Kategori>();
         List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("Kebersihan");
-        spinnerArray.add("item2");
+
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseKategori> mPembeliCall = mApiInterface.getKategori();
+        mPembeliCall.enqueue(new Callback<ResponseKategori>() {
+            @Override
+            public void onResponse(Call<ResponseKategori> call,
+                                   Response<ResponseKategori> response) {
+                Log.d("Get Kategori",response.body().getStatus());
+                kategoriArray = response.body().getResult();
+                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(Call<ResponseKategori> call, Throwable t) {
+                Log.d("Get Kategori",t.getMessage());
+                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+        for (int i=0;i<kategoriArray.size();i++){
+            spinnerArray.add(kategoriArray.get(i).getNama());
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, spinnerArray);

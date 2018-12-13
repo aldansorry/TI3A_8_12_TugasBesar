@@ -9,6 +9,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseKategori;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 
 public interface ApiInterface {
@@ -28,4 +29,7 @@ public interface ApiInterface {
             @Part("status") RequestBody status,
             @Part("kategori") RequestBody kategori
     );
+
+    @GET("kategori/kategori")
+    Call<ResponseKategori> getKategori();
 }
