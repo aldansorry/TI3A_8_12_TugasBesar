@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@android:color/background_light">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/imgHome"
                 android:layout_marginTop="10dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_home3"/>
+                android:src="@drawable/del"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -42,7 +45,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_smartcity2"/>
+                android:src="@drawable/bg"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -51,36 +54,39 @@
                 android:text="Smart City"/>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="2">
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/imgUser"
-                android:layout_marginTop="10dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_user2"/>
+                android:layout_marginTop="10dp"
+                android:src="@drawable/omg" />
 
             <TextView
                 android:id="@+id/txtUser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="110dp"
-                android:textAlignment="center"
-                android:text="User"/>
+                android:text="User"
+                android:textAlignment="center" />
         </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1">
-        </android.support.v7.widget.CardView>
+            android:layout_weight="1"></android.support.v7.widget.CardView>
     </LinearLayout>
 </LinearLayout>
