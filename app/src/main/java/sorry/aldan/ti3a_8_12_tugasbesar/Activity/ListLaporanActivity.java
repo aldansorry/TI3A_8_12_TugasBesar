@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +38,9 @@ public class ListLaporanActivity extends AppCompatActivity {
     private List<Laporan> dataset = new ArrayList<>();
     private SessionManagement sessionManagement;
 
+    EditText edtSearch;
+    Button btnSearch;
+
     FloatingActionButton btnAddLaporan;
 
     @Override
@@ -47,28 +52,12 @@ public class ListLaporanActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         btnAddLaporan = findViewById(R.id.btnAddLaporan);
+        edtSearch = findViewById(R.id.edtSearch);
+        btnSearch = findViewById(R.id.btnSearch);
 
         sessionManagement = new SessionManagement(this);
 
-        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseLaporan> mPembeliCall = mApiInterface.getLaporan();
-        mPembeliCall.enqueue(new Callback<ResponseLaporan>() {
-            @Override
-            public void onResponse(Call<ResponseLaporan> call,
-                                   Response<ResponseLaporan> response) {
-                Log.d("Get Pembeli",response.body().getStatus());
-                dataset = response.body().getResult();
-                mAdapter = new LaporanAdapter(dataset, getApplicationContext());
-                mRecyclerView.setAdapter(mAdapter);
-                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onFailure(Call<ResponseLaporan> call, Throwable t) {
-                Log.d("Get Pembeli",t.getMessage());
-                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
-
+        refreshList();
 
         mRecyclerView.addOnItemTouchListener(new RecycleTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
             @Override
@@ -101,6 +90,14 @@ public class ListLaporanActivity extends AppCompatActivity {
                 startActivity(mIntent);
             }
         });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String kata= edtSearch.getText().toString();
+                refreshListSearch(kata);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,5 +118,48 @@ public class ListLaporanActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void refreshList(){
+
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseLaporan> mPembeliCall = mApiInterface.getLaporan();
+        mPembeliCall.enqueue(new Callback<ResponseLaporan>() {
+            @Override
+            public void onResponse(Call<ResponseLaporan> call,
+                                   Response<ResponseLaporan> response) {
+                Log.d("Get Pembeli",response.body().getStatus());
+                dataset = response.body().getResult();
+                mAdapter = new LaporanAdapter(dataset, getApplicationContext());
+                mRecyclerView.setAdapter(mAdapter);
+                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(Call<ResponseLaporan> call, Throwable t) {
+                Log.d("Get Pembeli",t.getMessage());
+                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    public void refreshListSearch(String kata){
+
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseLaporan> mPembeliCall = mApiInterface.getLaporan(kata);
+        mPembeliCall.enqueue(new Callback<ResponseLaporan>() {
+            @Override
+            public void onResponse(Call<ResponseLaporan> call,
+                                   Response<ResponseLaporan> response) {
+                Log.d("Get Pembeli",response.body().getStatus());
+                dataset = response.body().getResult();
+                mAdapter = new LaporanAdapter(dataset, getApplicationContext());
+                mRecyclerView.setAdapter(mAdapter);
+                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(Call<ResponseLaporan> call, Throwable t) {
+                Log.d("Get Pembeli",t.getMessage());
+                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
