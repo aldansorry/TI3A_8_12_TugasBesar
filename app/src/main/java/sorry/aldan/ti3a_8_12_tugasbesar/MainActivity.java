@@ -16,13 +16,16 @@ import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    //variable untuk komponen view
     TextView txtUser;
     ImageView imgHome;
     ImageView imgSmartCity;
     ImageView imgUser;
 
+    //variable object class
     SessionManagement sessionManagement;
+
+    //variable untuk menyimpan data login
     HashMap<String,String> loginUser;
 
     @Override

@@ -15,9 +15,11 @@ import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    //variable view
     EditText edtNama, edtEmail, edtUsername, edtPassword;
     Button btnRegister;
 
+    //variable object
     SessionManagement sessionManagement;
     DatabaseHelper databaseHelper;
     @Override
@@ -25,15 +27,18 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //get dari layout
         edtNama = findViewById(R.id.edtNama);
         edtEmail = findViewById(R.id.edtEmail);
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
         btnRegister = findViewById(R.id.btnRegister);
 
+        //instance
         sessionManagement = new SessionManagement(this);
         databaseHelper = new DatabaseHelper(this);
 
+        //fungsi register
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

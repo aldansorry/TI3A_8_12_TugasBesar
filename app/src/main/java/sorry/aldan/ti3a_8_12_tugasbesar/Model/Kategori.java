@@ -8,13 +8,6 @@ public class Kategori {
     @SerializedName("nama")
     String nama;
 
-    public Kategori(String id, String nama) {
-        this.id = id;
-        this.nama = nama;
-    }
-
-    public Kategori() {
-    }
 
     public String getId() {
         return id;

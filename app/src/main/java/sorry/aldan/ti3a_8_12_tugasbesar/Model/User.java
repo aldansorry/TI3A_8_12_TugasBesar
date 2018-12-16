@@ -10,13 +10,6 @@ public class User {
     public User() {
     }
 
-    public User(int id, String nama, String email, String username, String level) {
-        this.id = id;
-        this.nama = nama;
-        this.email = email;
-        this.username = username;
-        this.level = level;
-    }
 
     public int getId() {
         return id;

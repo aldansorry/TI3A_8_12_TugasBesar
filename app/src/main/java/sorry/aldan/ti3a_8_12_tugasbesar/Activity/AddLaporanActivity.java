@@ -44,7 +44,9 @@ import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiInterface;
 
 public class AddLaporanActivity extends AppCompatActivity {
 
+    //variable untuk komponen view(layout)
     ImageView imgGambar;
+
     TextView edtJudul;
     TextView edtDeskripsi;
     TextView edtLattitude;
@@ -56,17 +58,25 @@ public class AddLaporanActivity extends AppCompatActivity {
 
     Spinner spnKategori;
 
+    //variable untuk menyimpan url gambar saat ambil galeri dan take photo
     String imagePath = "";
 
+    //variable untuk object class
     SessionManagement sessionManagement;
 
+    //variable list
     List<Kategori> kategoriArray;
+    List<String> spinnerArray;
+
+    //variable take picture
     private static final int REQUEST_IMAGE_PICTURE = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_laporan);
 
+        //get view
         imgGambar = findViewById(R.id.imgGambar);
         edtJudul = findViewById(R.id.edtJudul);
         edtDeskripsi = findViewById(R.id.edtDeskripsi);
@@ -77,41 +87,15 @@ public class AddLaporanActivity extends AppCompatActivity {
         btnTakePicture = findViewById(R.id.btnTakePicture);
         spnKategori = findViewById(R.id.spnKategori);
 
+        //instance object
         sessionManagement = new SessionManagement(this);
-
-
         kategoriArray = new ArrayList<Kategori>();
-        final List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray =  new ArrayList<String>();
 
-        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseKategori> mPembeliCall = mApiInterface.getKategori();
-        mPembeliCall.enqueue(new Callback<ResponseKategori>() {
-            @Override
-            public void onResponse(Call<ResponseKategori> call,
-                                   Response<ResponseKategori> response) {
-                Log.d("Get Kategori",response.body().getStatus());
-                kategoriArray = response.body().getResult();
+        //call kategori
+        getKategori();
 
-                for (int i=0;i<kategoriArray.size();i++){
-                    spinnerArray.add(kategoriArray.get(i).getNama());
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                        getApplicationContext(), android.R.layout.simple_spinner_item, spinnerArray);
-
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spnKategori.setAdapter(adapter);
-
-                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onFailure(Call<ResponseKategori> call, Throwable t) {
-                Log.d("Get Kategori",t.getMessage());
-                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
-
-
+        //membuka galeri
         btnAddGambar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +107,7 @@ public class AddLaporanActivity extends AppCompatActivity {
             }
         });
 
+        //menyimpan data
         btnAddLaporan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,26 +118,27 @@ public class AddLaporanActivity extends AppCompatActivity {
                     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     body = MultipartBody.Part.createFormData("gambar", file.getName(), requestFile);
                 }
+                //mengambil data dari view
                 RequestBody regNama = MultipartBody.create(MediaType.parse("multipart/form-data"), sessionManagement.getUserInformation().get(sessionManagement.KEY_USERNAME));
                 RequestBody regEmail = MultipartBody.create(MediaType.parse("multipart/form-data"), sessionManagement.getUserInformation().get(sessionManagement.KEY_USERNAME));
-
                 RequestBody regJudul = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtJudul.getText().toString().isEmpty())?"":edtJudul.getText().toString());
                 RequestBody regDeskripsi = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtDeskripsi.getText().toString().isEmpty())?"":edtDeskripsi.getText().toString());
                 RequestBody regLattitude = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtLattitude.getText().toString().isEmpty())?"":edtLattitude.getText().toString());
                 RequestBody regLongtitude = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtLongtitude.getText().toString().isEmpty())?"":edtLongtitude.getText().toString());
                 RequestBody regStatus = MultipartBody.create(MediaType.parse("multipart/form-data"), "1");
                 RequestBody regKategori = MultipartBody.create(MediaType.parse("multipart/form-data"), spnKategori.getSelectedItem().toString());
-                Call<ResponseLaporan> mPembeliCall = mApiInterface.postLaporan(body,regNama,regEmail, regJudul, regDeskripsi, regLattitude, regLongtitude, regStatus,regKategori);
-                mPembeliCall.enqueue(new Callback<ResponseLaporan>() {
+
+                //memanggil postLaporan
+                Call<ResponseLaporan> mPostLaporan = mApiInterface.postLaporan(body,regNama,regEmail, regJudul, regDeskripsi, regLattitude, regLongtitude, regStatus,regKategori);
+                mPostLaporan.enqueue(new Callback<ResponseLaporan>() {
                     @Override
                     public void onResponse(Call<ResponseLaporan> call, Response<ResponseLaporan> response) {
- Log.d("Insert Retrofit",response.body().getStatus());
+                        Log.d("Insert Retrofit",response.body().getStatus());
                         Toast.makeText(AddLaporanActivity.this,":"+response.body().getMessage(),Toast.LENGTH_LONG).show();
-
                     }
                     @Override
                     public void onFailure(Call<ResponseLaporan> call, Throwable t) {
- Log.d("Insert Retrofit", t.getMessage());
+                        Log.d("Insert Retrofit", t.getMessage());
                         Toast.makeText(AddLaporanActivity.this,":"+t.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
@@ -225,5 +211,35 @@ public class AddLaporanActivity extends AppCompatActivity {
             }
         }
         return path;
+    }
+
+    public void getKategori(){
+        ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseKategori> mGetKategori = mApiInterface.getKategori();
+        mGetKategori.enqueue(new Callback<ResponseKategori>() {
+            @Override
+            public void onResponse(Call<ResponseKategori> call,
+                                   Response<ResponseKategori> response) {
+                Log.d("Get Kategori",response.body().getStatus());
+                kategoriArray = response.body().getResult();
+
+                for (int i=0;i<kategoriArray.size();i++){
+                    spinnerArray.add(kategoriArray.get(i).getNama());
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        getApplicationContext(), android.R.layout.simple_spinner_item, spinnerArray);
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spnKategori.setAdapter(adapter);
+
+                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(Call<ResponseKategori> call, Throwable t) {
+                Log.d("Get Kategori",t.getMessage());
+                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

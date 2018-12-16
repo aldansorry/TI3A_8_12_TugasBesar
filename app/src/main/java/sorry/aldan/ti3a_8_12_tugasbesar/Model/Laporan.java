@@ -1,8 +1,11 @@
 package sorry.aldan.ti3a_8_12_tugasbesar.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Laporan {
+public class Laporan implements Parcelable {
     @SerializedName("id")
     private String id;
     @SerializedName("nama")
@@ -23,22 +26,6 @@ public class Laporan {
     private String status;
     @SerializedName("nama_kategori")
     private String nama_kategori;
-
-    public Laporan() {
-    }
-
-    public Laporan(String id, String nama, String email, String judul, String deskripsi, Double lattitude, Double longtitude, String gambar, String status, String nama_kategori) {
-        this.id = id;
-        this.nama = nama;
-        this.email = email;
-        this.judul = judul;
-        this.deskripsi = deskripsi;
-        this.lattitude = lattitude;
-        this.longtitude = longtitude;
-        this.gambar = gambar;
-        this.status = status;
-        this.nama_kategori = nama_kategori;
-    }
 
     public String getId() {
         return id;
@@ -119,4 +106,52 @@ public class Laporan {
     public void setNama_kategori(String nama_kategori) {
         this.nama_kategori = nama_kategori;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.nama);
+        dest.writeString(this.email);
+        dest.writeString(this.judul);
+        dest.writeString(this.deskripsi);
+        dest.writeValue(this.lattitude);
+        dest.writeValue(this.longtitude);
+        dest.writeString(this.gambar);
+        dest.writeString(this.status);
+        dest.writeString(this.nama_kategori);
+    }
+
+    public Laporan() {
+    }
+
+    protected Laporan(Parcel in) {
+        this.id = in.readString();
+        this.nama = in.readString();
+        this.email = in.readString();
+        this.judul = in.readString();
+        this.deskripsi = in.readString();
+        this.lattitude = (Double) in.readValue(Double.class.getClassLoader());
+        this.longtitude = (Double) in.readValue(Double.class.getClassLoader());
+        this.gambar = in.readString();
+        this.status = in.readString();
+        this.nama_kategori = in.readString();
+    }
+
+    public static final Creator<Laporan> CREATOR = new Creator<Laporan>() {
+        @Override
+        public Laporan createFromParcel(Parcel source) {
+            return new Laporan(source);
+        }
+
+        @Override
+        public Laporan[] newArray(int size) {
+            return new Laporan[size];
+        }
+    };
 }

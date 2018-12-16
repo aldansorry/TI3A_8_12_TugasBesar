@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +33,7 @@ import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiInterface;
 
-public class ListLaporanActivity extends AppCompatActivity {
+public class ListLaporanActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -66,15 +69,8 @@ public class ListLaporanActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(),DetailActivity.class);
 
                 // ToDo 6 buat intent untuk membawa data (image, nama, url) ke DetailActivity
-                i.putExtra("judul",dataset.get(position).getJudul().toString());
-                i.putExtra("deskripsi",dataset.get(position).getDeskripsi().toString());
-                i.putExtra("lattitude",dataset.get(position).getLattitude().toString());
-                i.putExtra("longtitude",dataset.get(position).getLongtitude().toString());
-                i.putExtra("gambar",dataset.get(position).getGambar().toString());
+                i.putExtra(DetailActivity.EXTRA_LAPORAN,dataset.get(position));
                 startActivity(i);
-
-
-
             }
 
             @Override
@@ -161,5 +157,10 @@ public class ListLaporanActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }

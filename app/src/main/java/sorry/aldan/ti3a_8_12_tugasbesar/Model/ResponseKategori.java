@@ -13,9 +13,6 @@ public class ResponseKategori {
     @SerializedName("message")
     private String message;
 
-    public ResponseKategori(){
-
-    }
 
     public String getStatus() {
         return status;
