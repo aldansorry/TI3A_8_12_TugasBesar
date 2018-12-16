@@ -87,6 +87,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1"></android.support.v7.widget.CardView>
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/imgMap"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_launcher_background" />
+
+            <TextView
+                android:id="@+id/txtMap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="110dp"
+                android:text="Google Maps"
+                android:textAlignment="center" />
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </LinearLayout>

@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.Activity.LoginActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Activity.ListLaporanActivity;
+import sorry.aldan.ti3a_8_12_tugasbesar.Activity.MapsActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgHome;
     ImageView imgSmartCity;
     ImageView imgUser;
+    ImageView imgMap;
 
     //variable object class
     SessionManagement sessionManagement;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         imgHome = findViewById(R.id.imgGambar);
         imgSmartCity = findViewById(R.id.imgSmartCity);
         imgUser = findViewById(R.id.imgUser);
+        imgMap = findViewById(R.id.imgMap);
 
         //instance
         sessionManagement = new SessionManagement(this);
@@ -66,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this,ListLaporanActivity.class);
                 startActivity(i);
+            }
+        });
+
+        imgMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(MainActivity.this,MapsActivity.class);
+                startActivity(mIntent);
             }
         });
     }

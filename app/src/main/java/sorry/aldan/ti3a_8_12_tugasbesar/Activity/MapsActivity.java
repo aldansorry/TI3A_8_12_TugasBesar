@@ -90,8 +90,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Laporan lap = dataset.get(i);
                     LatLng myLatLang = new LatLng(lap.getLattitude(),lap.getLongtitude());
                     mMap.addMarker(new MarkerOptions().position(myLatLang).title(lap.getJudul()));
-                    if (lap.getJudul().equals(myIntent.getStringExtra(EXTRA_JUDUL))){
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLang));
+                    if (myIntent.getExtras() != null){
+                        if (lap.getJudul().equals(myIntent.getStringExtra(EXTRA_JUDUL))){
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLang));
+                        }
                     }
                 }
                 Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
