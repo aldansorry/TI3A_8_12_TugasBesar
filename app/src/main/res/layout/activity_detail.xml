@@ -58,6 +58,12 @@
                     android:layout_height="wrap_content"
                     android:text="Go TO Map"
                     tools:layout_editor_absoluteY="260dp" />
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    tools:layout_editor_absoluteY="260dp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

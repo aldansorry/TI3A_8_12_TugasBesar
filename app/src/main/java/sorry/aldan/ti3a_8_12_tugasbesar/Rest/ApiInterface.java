@@ -3,6 +3,7 @@ package sorry.aldan.ti3a_8_12_tugasbesar.Rest;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -33,6 +34,9 @@ public interface ApiInterface {
             @Part("status") RequestBody status,
             @Part("kategori") RequestBody kategori
     );
+
+    @DELETE("laporan/laporan/{id}")
+    Call<ResponseLaporan> deleteLaporan(@Path("id") String id);
 
     @GET("kategori/kategori")
     Call<ResponseKategori> getKategori();

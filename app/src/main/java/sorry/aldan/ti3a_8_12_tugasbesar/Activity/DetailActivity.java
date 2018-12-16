@@ -3,16 +3,24 @@ package sorry.aldan.ti3a_8_12_tugasbesar.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
+import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
+import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiInterface;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -22,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtDeskripsi;
     ImageView imgGambar;
     Button btnMaps;
+    Button btnDelete;
 
     //variable intent
     Intent myIntent;
@@ -35,6 +44,7 @@ public class DetailActivity extends AppCompatActivity {
         txtDeskripsi = findViewById(R.id.txtDeskrpsi);
         imgGambar = findViewById(R.id.imgGambar);
         btnMaps = findViewById(R.id.btnMaps);
+        btnDelete = findViewById(R.id.btnDelete);
 
         //get intent
         myIntent = getIntent();
@@ -53,6 +63,27 @@ public class DetailActivity extends AppCompatActivity {
                 intent.putExtra(MapsActivity.EXTRA_LAT,mLaporan.getLattitude());
                 intent.putExtra(MapsActivity.EXTRA_LONG,mLaporan.getLongtitude());
                 startActivity(intent);
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+                Call<ResponseLaporan> mPembeliCall = mApiInterface.deleteLaporan(mLaporan.getId());
+                mPembeliCall.enqueue(new Callback<ResponseLaporan>() {
+                    @Override
+                    public void onResponse(Call<ResponseLaporan> call,
+                                           Response<ResponseLaporan> response) {
+                        Log.d("Get Pembeli",response.body().getStatus());
+                        Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseLaporan> call, Throwable t) {
+                        Log.d("Get Pembeli",t.getMessage());
+                        Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }
