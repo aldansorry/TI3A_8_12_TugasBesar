@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
+import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
         //merubah text sesuai data yang telah di intent
         txtJudul.setText(mLaporan.getJudul());
         txtDeskripsi.setText(mLaporan.getDeskripsi());
-        Picasso.with(getApplicationContext()).load(mLaporan.getGambar());
+        Picasso.with(DetailActivity.this).load(ApiClient.BASE_URL+"application/upload/" +mLaporan.getGambar()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(imgGambar);
 
         btnMaps.setOnClickListener(new View.OnClickListener() {
             @Override

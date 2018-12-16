@@ -1,12 +1,20 @@
 package sorry.aldan.ti3a_8_12_tugasbesar.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,6 +79,13 @@ public class AddLaporanActivity extends AppCompatActivity {
     //variable take picture
     private static final int REQUEST_IMAGE_PICTURE = 101;
 
+
+    private LocationManager locationManager;
+    private String provider;
+    private MyLocationListener mylistener;
+    private Criteria criteria;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +105,7 @@ public class AddLaporanActivity extends AppCompatActivity {
         //instance object
         sessionManagement = new SessionManagement(this);
         kategoriArray = new ArrayList<Kategori>();
-        spinnerArray =  new ArrayList<String>();
+        spinnerArray = new ArrayList<String>();
 
         //call kategori
         getKategori();
@@ -113,7 +128,7 @@ public class AddLaporanActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ApiInterface mApiInterface = ApiClient.getClient().create(ApiInterface.class);
                 MultipartBody.Part body = null;
-                if (!imagePath.isEmpty()){
+                if (!imagePath.isEmpty()) {
                     File file = new File(imagePath);
                     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     body = MultipartBody.Part.createFormData("gambar", file.getName(), requestFile);
@@ -121,29 +136,71 @@ public class AddLaporanActivity extends AppCompatActivity {
                 //mengambil data dari view
                 RequestBody regNama = MultipartBody.create(MediaType.parse("multipart/form-data"), sessionManagement.getUserInformation().get(sessionManagement.KEY_USERNAME));
                 RequestBody regEmail = MultipartBody.create(MediaType.parse("multipart/form-data"), sessionManagement.getUserInformation().get(sessionManagement.KEY_USERNAME));
-                RequestBody regJudul = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtJudul.getText().toString().isEmpty())?"":edtJudul.getText().toString());
-                RequestBody regDeskripsi = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtDeskripsi.getText().toString().isEmpty())?"":edtDeskripsi.getText().toString());
-                RequestBody regLattitude = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtLattitude.getText().toString().isEmpty())?"":edtLattitude.getText().toString());
-                RequestBody regLongtitude = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtLongtitude.getText().toString().isEmpty())?"":edtLongtitude.getText().toString());
+                RequestBody regJudul = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtJudul.getText().toString().isEmpty()) ? "" : edtJudul.getText().toString());
+                RequestBody regDeskripsi = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtDeskripsi.getText().toString().isEmpty()) ? "" : edtDeskripsi.getText().toString());
+                RequestBody regLattitude = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtLattitude.getText().toString().isEmpty()) ? "" : edtLattitude.getText().toString());
+                RequestBody regLongtitude = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtLongtitude.getText().toString().isEmpty()) ? "" : edtLongtitude.getText().toString());
                 RequestBody regStatus = MultipartBody.create(MediaType.parse("multipart/form-data"), "1");
                 RequestBody regKategori = MultipartBody.create(MediaType.parse("multipart/form-data"), spnKategori.getSelectedItem().toString());
 
                 //memanggil postLaporan
-                Call<ResponseLaporan> mPostLaporan = mApiInterface.postLaporan(body,regNama,regEmail, regJudul, regDeskripsi, regLattitude, regLongtitude, regStatus,regKategori);
+                Call<ResponseLaporan> mPostLaporan = mApiInterface.postLaporan(body, regNama, regEmail, regJudul, regDeskripsi, regLattitude, regLongtitude, regStatus, regKategori);
                 mPostLaporan.enqueue(new Callback<ResponseLaporan>() {
                     @Override
                     public void onResponse(Call<ResponseLaporan> call, Response<ResponseLaporan> response) {
-                        Log.d("Insert Retrofit",response.body().getStatus());
-                        Toast.makeText(AddLaporanActivity.this,":"+response.body().getMessage(),Toast.LENGTH_LONG).show();
+                        Log.d("Insert Retrofit", response.body().getStatus());
+                        Toast.makeText(AddLaporanActivity.this, ":" + response.body().getMessage(), Toast.LENGTH_LONG).show();
                     }
+
                     @Override
                     public void onFailure(Call<ResponseLaporan> call, Throwable t) {
                         Log.d("Insert Retrofit", t.getMessage());
-                        Toast.makeText(AddLaporanActivity.this,":"+t.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddLaporanActivity.this, ":" + t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
         });
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // Define the criteria how to select the location provider
+        criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);   //default
+
+        // user defines the criteria
+
+        criteria.setCostAllowed(false);
+        // get the best provider depending on the criteria
+        provider = locationManager.getBestProvider(criteria, false);
+
+        // the last known location of this provider
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        mylistener = new MyLocationListener();
+
+        if (location != null) {
+            mylistener.onLocationChanged(location);
+        } else {
+            // leads to the settings because there is no last known location
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+        // location updates: at least 1 meter and 200millsecs change
+        locationManager.requestLocationUpdates(provider, 200, 1, mylistener);
+        String a=""+location.getLatitude();
+        edtLattitude.setText(String.valueOf(location.getLatitude()));
+        edtLongtitude.setText(String.valueOf(location.getLongitude()));
+        Toast.makeText(getApplicationContext(), a, Toast.LENGTH_LONG).show();
+        locationManager.removeUpdates(mylistener);
+        locationManager = null;
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -242,4 +299,37 @@ public class AddLaporanActivity extends AppCompatActivity {
             }
         });
     }
+    private class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            // Initialize the location fields
+
+
+
+            Toast.makeText(AddLaporanActivity.this,  ""+location.getLatitude()+location.getLongitude(),
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Toast.makeText(AddLaporanActivity.this, provider + "'s status changed to "+status +"!",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Toast.makeText(AddLaporanActivity.this, "Provider " + provider + " enabled!",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Toast.makeText(AddLaporanActivity.this, "Provider " + provider + " disabled!",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 }
+
