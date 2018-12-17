@@ -8,6 +8,7 @@ import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
@@ -25,6 +26,21 @@ public interface ApiInterface {
     @POST("laporan/laporan")
     Call<ResponseLaporan> postLaporan(
             @Part MultipartBody.Part file,
+            @Part("nama") RequestBody nama,
+            @Part("email") RequestBody email,
+            @Part("judul") RequestBody judul,
+            @Part("deskripsi") RequestBody deskripsi,
+            @Part("longtitude") RequestBody longtitude,
+            @Part("lattitude") RequestBody lattitude,
+            @Part("status") RequestBody status,
+            @Part("kategori") RequestBody kategori
+    );
+
+    @Multipart
+    @PUT("laporan/laporan")
+    Call<ResponseLaporan> putLaporan(
+            @Part MultipartBody.Part file,
+            @Part("id") RequestBody id,
             @Part("nama") RequestBody nama,
             @Part("email") RequestBody email,
             @Part("judul") RequestBody judul,

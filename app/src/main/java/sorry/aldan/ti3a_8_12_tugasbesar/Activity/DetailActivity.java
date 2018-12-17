@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView txtDeskripsi;
     ImageView imgGambar;
     Button btnMaps;
+    Button btnEdit;
     Button btnDelete;
 
     //variable intent
@@ -44,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         txtDeskripsi = findViewById(R.id.txtDeskrpsi);
         imgGambar = findViewById(R.id.imgGambar);
         btnMaps = findViewById(R.id.btnMaps);
+        btnEdit = findViewById(R.id.btnEdit);
         btnDelete = findViewById(R.id.btnDelete);
 
         //get intent
@@ -62,6 +64,15 @@ public class DetailActivity extends AppCompatActivity {
                 intent.putExtra(MapsActivity.EXTRA_JUDUL,mLaporan.getJudul());
                 intent.putExtra(MapsActivity.EXTRA_LAT,mLaporan.getLattitude());
                 intent.putExtra(MapsActivity.EXTRA_LONG,mLaporan.getLongtitude());
+                startActivity(intent);
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this,EditLaporanActivity.class);
+                intent.putExtra(EditLaporanActivity.EXTRA_LAPORAN,mLaporan);
                 startActivity(intent);
             }
         });
