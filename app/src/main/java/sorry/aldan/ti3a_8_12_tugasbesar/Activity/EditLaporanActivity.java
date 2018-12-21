@@ -131,7 +131,7 @@ public class EditLaporanActivity extends AppCompatActivity {
                     body = MultipartBody.Part.createFormData("gambar", file.getName(), requestFile);
                 }
                 //mengambil data dari view
-                RequestBody regId = MultipartBody.create(MediaType.parse("multipart/form-data"),myLaporan.getId());
+                RequestBody regId = MultipartBody.create(MediaType.parse("multipart/form-data"),myLaporan.getId().toString());
                 RequestBody regNama = MultipartBody.create(MediaType.parse("multipart/form-data"), sessionManagement.getUserInformation().get(sessionManagement.KEY_USERNAME));
                 RequestBody regEmail = MultipartBody.create(MediaType.parse("multipart/form-data"), sessionManagement.getUserInformation().get(sessionManagement.KEY_USERNAME));
                 RequestBody regJudul = MultipartBody.create(MediaType.parse("multipart/form-data"), (edtJudul.getText().toString().isEmpty()) ? "" : edtJudul.getText().toString());

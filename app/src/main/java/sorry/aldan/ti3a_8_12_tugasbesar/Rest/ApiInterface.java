@@ -37,7 +37,7 @@ public interface ApiInterface {
     );
 
     @Multipart
-    @PUT("laporan/laporan")
+    @POST("laporan/laporanput")
     Call<ResponseLaporan> putLaporan(
             @Part MultipartBody.Part file,
             @Part("id") RequestBody id,
