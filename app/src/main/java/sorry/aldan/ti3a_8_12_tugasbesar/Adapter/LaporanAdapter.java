@@ -41,7 +41,7 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.LaporanH
         Laporan um = listLaporan.get(i);
         laporanHolder.txtJudul.setText(um.getJudul());
         laporanHolder.txtStatus.setText(um.getDeskripsi());
-        Picasso.with(mContext).load(ApiClient.BASE_URL+"application/upload/" +um.getGambar()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(laporanHolder.imgGambar);
+        Picasso.with(mContext).load(ApiClient.BASE_URL+"uploads/" +um.getGambar()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(laporanHolder.imgGambar);
 
     }
 

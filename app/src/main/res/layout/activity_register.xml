@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textColor="#ffff"
-            android:background="@color/t_blue"
+            android:background="@color/colorPrimary"
             android:layout_marginHorizontal="20dp"
             android:layout_gravity="center_horizontal"
             android:text="Register" />

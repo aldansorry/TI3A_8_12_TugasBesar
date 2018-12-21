@@ -7,6 +7,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +25,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
+import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.MainActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
@@ -108,5 +112,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                mIntent = new Intent(this, MainActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuAddLaporan:
+                mIntent = new Intent(this, AddLaporanActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuListLaporan:
+//                mIntent = new Intent(this, ListLaporanActivity.class);
+//                startActivity(mIntent);
+                return true;
+            case R.id.menuLogout:
+                new SessionManagement(getApplicationContext()).logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

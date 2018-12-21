@@ -29,11 +29,10 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false"></uses-library>
         <activity
             android:name=".MainActivity"
-            android:label="Home"></activity>
+            android:label="Smart City"></activity>
         <activity
             android:name=".Activity.LoginActivity"
-            android:label="Login"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:label="Login" />
         <activity android:name=".Activity.ListLaporanActivity" />
         <activity android:name=".Activity.DetailActivity" />
         <activity
@@ -64,7 +63,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.EditLaporanActivity"></activity>
+        <activity android:name=".Activity.EditLaporanActivity"
+            android:label="Edit Laporan"></activity>
     </application>
 
 </manifest>

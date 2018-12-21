@@ -10,25 +10,30 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintHeight_percent="0.1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <EditText
                 android:id="@+id/edtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_gravity="center_vertical"
                 android:hint="Search" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search" />
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/ic_search"/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -37,13 +42,8 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintHeight_percent="0.9"
 
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,12 +55,15 @@
         android:id="@+id/btnAddLaporan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="15dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_plus" />
 
 

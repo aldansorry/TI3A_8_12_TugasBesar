@@ -10,12 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +24,14 @@ import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.ClickListener;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.RecycleTouchListener;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.MainActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiClient;
 import sorry.aldan.ti3a_8_12_tugasbesar.Rest.ApiInterface;
 
-public class ListLaporanActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ListLaporanActivity extends AppCompatActivity{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -42,7 +40,7 @@ public class ListLaporanActivity extends AppCompatActivity implements OnMapReady
     private SessionManagement sessionManagement;
 
     EditText edtSearch;
-    Button btnSearch;
+    ImageView imgSearch;
 
     FloatingActionButton btnAddLaporan;
 
@@ -56,7 +54,7 @@ public class ListLaporanActivity extends AppCompatActivity implements OnMapReady
         mRecyclerView.setLayoutManager(mLayoutManager);
         btnAddLaporan = findViewById(R.id.btnAddLaporan);
         edtSearch = findViewById(R.id.edtSearch);
-        btnSearch = findViewById(R.id.btnSearch);
+        imgSearch = findViewById(R.id.btnSearch);
 
         sessionManagement = new SessionManagement(this);
 
@@ -87,7 +85,7 @@ public class ListLaporanActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String kata= edtSearch.getText().toString();
@@ -95,26 +93,7 @@ public class ListLaporanActivity extends AppCompatActivity implements OnMapReady
             }
         });
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_layout, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent mIntent;
-        switch (item.getItemId()) {
-            case R.id.menuAddLaporan:
-                mIntent = new Intent(this, AddLaporanActivity.class);
-                startActivity(mIntent);
-                return true;
-            case R.id.menuLogout:
-                sessionManagement.logoutUser();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
 
     public void refreshList(){
 
@@ -160,7 +139,31 @@ public class ListLaporanActivity extends AppCompatActivity implements OnMapReady
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                mIntent = new Intent(this, MainActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuAddLaporan:
+                mIntent = new Intent(this, AddLaporanActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuListLaporan:
+//                mIntent = new Intent(this, ListLaporanActivity.class);
+//                startActivity(mIntent);
+                return true;
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

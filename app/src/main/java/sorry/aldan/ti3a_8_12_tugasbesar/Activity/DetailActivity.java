@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +18,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
+import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.MainActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Laporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
@@ -35,6 +39,8 @@ public class DetailActivity extends AppCompatActivity {
 
     //variable intent
     Intent myIntent;
+
+    SessionManagement sessionManagement;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +57,12 @@ public class DetailActivity extends AppCompatActivity {
         //get intent
         myIntent = getIntent();
 
+        sessionManagement = new SessionManagement(this);
         final Laporan mLaporan = (Laporan) myIntent.getParcelableExtra(EXTRA_LAPORAN);
         //merubah text sesuai data yang telah di intent
         txtJudul.setText(mLaporan.getJudul());
         txtDeskripsi.setText(mLaporan.getDeskripsi());
-        Picasso.with(DetailActivity.this).load(ApiClient.BASE_URL+"application/upload/" +mLaporan.getGambar()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(imgGambar);
+        Picasso.with(DetailActivity.this).load(ApiClient.BASE_URL+"uploads/" +mLaporan.getGambar()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into(imgGambar);
 
         btnMaps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,5 +104,34 @@ public class DetailActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                mIntent = new Intent(this, MainActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuAddLaporan:
+                mIntent = new Intent(this, AddLaporanActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuListLaporan:
+                mIntent = new Intent(this, ListLaporanActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

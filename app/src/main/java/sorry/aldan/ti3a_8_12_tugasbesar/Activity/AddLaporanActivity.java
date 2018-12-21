@@ -18,6 +18,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,6 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import sorry.aldan.ti3a_8_12_tugasbesar.Adapter.LaporanAdapter;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.MainActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.Kategori;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseKategori;
 import sorry.aldan.ti3a_8_12_tugasbesar.Model.ResponseLaporan;
@@ -198,7 +201,6 @@ public class AddLaporanActivity extends AppCompatActivity {
         String a=""+location.getLatitude();
         edtLattitude.setText(String.valueOf(location.getLatitude()));
         edtLongtitude.setText(String.valueOf(location.getLongitude()));
-        Toast.makeText(getApplicationContext(), a, Toast.LENGTH_LONG).show();
         locationManager.removeUpdates(mylistener);
         locationManager = null;
     }
@@ -290,15 +292,44 @@ public class AddLaporanActivity extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spnKategori.setAdapter(adapter);
 
-                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"Berhasil",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Call<ResponseKategori> call, Throwable t) {
                 Log.d("Get Kategori",t.getMessage());
-                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"Gagal"+t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_layout, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent mIntent;
+        switch (item.getItemId()) {
+            case R.id.menuHome:
+                mIntent = new Intent(this, MainActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuAddLaporan:
+//                mIntent = new Intent(this, AddLaporanActivity.class);
+//                startActivity(mIntent);
+                return true;
+            case R.id.menuListLaporan:
+                mIntent = new Intent(this, ListLaporanActivity.class);
+                startActivity(mIntent);
+                return true;
+            case R.id.menuLogout:
+                sessionManagement.logoutUser();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class MyLocationListener implements LocationListener {
 
         @Override
@@ -307,28 +338,28 @@ public class AddLaporanActivity extends AppCompatActivity {
 
 
 
-            Toast.makeText(AddLaporanActivity.this,  ""+location.getLatitude()+location.getLongitude(),
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AddLaporanActivity.this,  ""+location.getLatitude()+location.getLongitude(),
+//                    Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            Toast.makeText(AddLaporanActivity.this, provider + "'s status changed to "+status +"!",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AddLaporanActivity.this, provider + "'s status changed to "+status +"!",
+//                    Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            Toast.makeText(AddLaporanActivity.this, "Provider " + provider + " enabled!",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AddLaporanActivity.this, "Provider " + provider + " enabled!",
+//                    Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            Toast.makeText(AddLaporanActivity.this, "Provider " + provider + " disabled!",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AddLaporanActivity.this, "Provider " + provider + " disabled!",
+//                    Toast.LENGTH_SHORT).show();
         }
     }
 }

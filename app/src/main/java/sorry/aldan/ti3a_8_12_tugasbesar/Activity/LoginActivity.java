@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.DatabaseHelper;
 import sorry.aldan.ti3a_8_12_tugasbesar.Helper.SessionManagement;
+import sorry.aldan.ti3a_8_12_tugasbesar.MainActivity;
 import sorry.aldan.ti3a_8_12_tugasbesar.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goToActivity(){
-        Intent mIntent = new Intent(this,ListLaporanActivity.class);
+        Intent mIntent = new Intent(this,MainActivity.class);
         startActivity(mIntent);
     }
 }
